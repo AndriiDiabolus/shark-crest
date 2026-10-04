@@ -7,9 +7,9 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#06283d">
-<meta name="description" content="Бесконечный раннер на серфе: волны, рыба, сокровища и акула.">
+<meta name="description" content="Ocean Surfer X — бесконечный раннер на серфе: волны, рыба, сокровища и акула.">
 <style>html{padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px);box-sizing:border-box}body{margin:0}[hidden]{display:none!important}</style>
-<title>Акулий гребень</title>
+<title>Ocean Surfer X</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Golos+Text:wght@400;600;800&display=swap">
 <style>
 /* Layout: the sea fills the whole stage; HUD floats on top, menus sit bottom-left over a dimmed horizon.
@@ -41,8 +41,8 @@ body{background:var(--deep);color:var(--foam);font-family:var(--body);overflow:h
   radial-gradient(circle at 84% 68%,var(--ink) 0 12%,transparent 24%)}
 #ink.on{opacity:.94}
 
-.menu{position:absolute;inset:0;display:flex;align-items:flex-end;overflow-y:auto;padding:24px max(16px,env(safe-area-inset-right,0px)) 64px max(16px,env(safe-area-inset-left,0px));background:linear-gradient(to top,rgba(4,32,47,.94) 0%,rgba(4,32,47,.7) 45%,rgba(4,32,47,.05) 100%)}
-.menu > div{display:flex;flex-direction:column;gap:14px;max-width:30rem;min-width:0}
+.menu{position:absolute;inset:0;display:flex;flex-direction:column;overflow-y:auto;padding:24px max(16px,env(safe-area-inset-right,0px)) 64px max(16px,env(safe-area-inset-left,0px));background:linear-gradient(to top,rgba(4,32,47,.94) 0%,rgba(4,32,47,.7) 45%,rgba(4,32,47,.05) 100%)}
+.menu > div{display:flex;flex-direction:column;gap:14px;max-width:30rem;min-width:0;margin-top:auto}
 .eyebrow{font-size:.72rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--sun)}
 h1{font-family:var(--display);font-weight:400;font-size:clamp(2.2rem,9vw,4rem);line-height:.98;margin:0;text-wrap:balance}
 .menu p{margin:0;font-size:1rem;line-height:1.5}
@@ -56,6 +56,25 @@ button:focus-visible{outline:3px solid var(--foam);outline-offset:3px}
 #snd{position:absolute;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));font-size:.8rem;padding:8px 14px;background:var(--ink);color:var(--foam)}
 #snd:hover{background:var(--deep)}
 button{touch-action:manipulation}
+.credit{font-size:.9rem;font-weight:600;color:var(--lagoon)}
+.nick{display:flex;flex-direction:column;gap:6px}
+.nick label{font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.nick .row{display:flex;gap:8px;flex-wrap:wrap}
+.nick input{flex:1 1 10rem;min-width:0;font:600 16px var(--body);padding:12px 16px;border-radius:999px;border:2px solid var(--lagoon);background:var(--ink);color:var(--foam);user-select:text;-webkit-user-select:text}
+.nick input:focus-visible{outline:3px solid var(--foam);outline-offset:2px}
+.nick button{background:var(--lagoon)}
+#nickMsg{font-size:.85rem;color:var(--lagoon);min-height:1.2em}
+.board{list-style:none;margin:0;padding:0;display:grid;gap:2px;font-variant-numeric:tabular-nums;max-width:22rem}
+.board li{display:grid;grid-template-columns:2ch 1fr auto;gap:10px;padding:4px 10px;border-radius:8px;font-size:.92rem}
+.board li.me{background:rgba(111,220,207,.22);font-weight:800}
+.board li span:nth-child(2){overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#splash{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:24px 16px;text-align:center;
+  background:radial-gradient(circle at 50% 38%,#0f6f8c 0%,var(--deep) 62%,var(--ink) 100%);transition:opacity .6s}
+#splash.out{opacity:0;pointer-events:none}
+#splash h1{font-size:clamp(2.4rem,11vw,5rem)}
+#splash p{margin:0;font-size:clamp(1rem,3.6vw,1.4rem);font-weight:600;color:var(--sun)}
+#splash span{margin-top:18px;font-size:.72rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;opacity:.75}
+@media (prefers-reduced-motion:reduce){#splash{transition:none}}
 @media (max-height:520px){
   .menu{padding-bottom:20px}
   .menu > div{gap:8px}
@@ -81,7 +100,8 @@ button{touch-action:manipulation}
   <div class="menu" id="start">
     <div>
       <span class="eyebrow">Прототип · бесконечный раннер</span>
-      <h1>Акулий гребень</h1>
+      <h1>Ocean Surfer X</h1>
+      <span class="credit">by Alex Shestakov and Co.</span>
       <p id="intro">Меняй линию, прыгай через волны и ныряй в трубы. Рыба и сундуки дают улов. На большой волне лежат сокровища, но в ней может ждать акула: увидел красный знак — уходи с гребня. Бонусы плавают в пузырях, а всё с фиолетовым кольцом лучше объезжать.</p>
       <dl class="keys" id="keys">
         <dt>← →</dt><dd>сменить линию</dd>
@@ -102,6 +122,15 @@ button{touch-action:manipulation}
         <div class="stat"><b id="rFish">0</b><span>улов</span></div>
         <div class="stat"><b id="rBest">0</b><span>рекорд</span></div>
       </div>
+      <form class="nick" id="nickForm">
+        <label for="nick">Никнейм для таблицы рекордов</label>
+        <div class="row">
+          <input id="nick" name="nick" type="text" maxlength="16" autocomplete="nickname" autocapitalize="off" spellcheck="false" placeholder="Твой ник">
+          <button type="submit">Сохранить</button>
+        </div>
+        <span id="nickMsg" role="status"></span>
+      </form>
+      <ol class="board" id="board"></ol>
       <button id="again" type="button">Ещё заезд</button>
     </div>
   </div>
@@ -113,6 +142,11 @@ button{touch-action:manipulation}
     </div>
   </div>
   <button id="snd" type="button">Звук: вкл</button>
+  <div id="splash">
+    <h1>Ocean Surfer X</h1>
+    <p>by Alex Shestakov and Co.</p>
+    <span>Загрузка…</span>
+  </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -120,6 +154,8 @@ button{touch-action:manipulation}
 (()=>{
 const $=id=>document.getElementById(id);
 const stage=$('stage'),cv=$('sea');
+{const sp=$('splash'),hide=()=>{sp.classList.add('out');setTimeout(()=>{sp.hidden=true},700)};
+  setTimeout(hide,2400);sp.addEventListener('pointerdown',hide)}
 if(!window.THREE){$('intro').textContent='Не удалось загрузить 3D-библиотеку. Проверь соединение и обнови страницу.';$('go').hidden=true;return}
 let renderer;
 const TOUCH=matchMedia('(pointer:coarse)').matches;
@@ -792,13 +828,56 @@ function start(){
   if(A.ctx){A.master.gain.setTargetAtTime(A.on?.9:0,A.ctx.currentTime,.05);A.playing=true;A.step=0;A.next=A.ctx.currentTime+.1;A.musF.frequency.setTargetAtTime(12000,A.ctx.currentTime,.05)}
   toast(TOUCH?'Свайп ← → линия · ↑ или тап — прыжок · ↓ пригнуться':'← → линия · ↑ прыжок · ↓ пригнуться',3000);
 }
+/* ---------- records: every player signs a personal best with a nickname ----------
+   Stored on this device. Set LB_URL to a Firebase Realtime Database address
+   (https://<project>-default-rtdb.<region>.firebasedatabase.app) to share one table between all players. */
+const LB_URL='';
+let lastScore=0,myNick='';
+try{myNick=localStorage.getItem('oceanSurferNick')||''}catch(e){}
+const loadBoard=()=>{try{const b=JSON.parse(localStorage.getItem('oceanSurferBoard')||'[]');return Array.isArray(b)?b.filter(r=>r&&typeof r.n==='string'&&typeof r.s==='number'):[]}catch(e){return[]}};
+const cleanNick=v=>String(v||'').replace(/[\u0000-\u001f<>]/g,'').replace(/\s+/g,' ').trim().slice(0,16);
+const nickKey=n=>Array.from(new TextEncoder().encode(n.toLowerCase())).map(b=>b.toString(16).padStart(2,'0')).join('');
+function mergeBoard(list,n,sc){
+  const k=n.toLowerCase(),row=list.find(r=>r.n.toLowerCase()===k);
+  if(row){row.n=n;row.s=Math.max(row.s,sc)}else list.push({n,s:sc});
+  return list.sort((a,b)=>b.s-a.s).slice(0,50);
+}
+function drawBoard(list){
+  const ol=$('board');ol.textContent='';
+  list.slice(0,8).forEach((r,i)=>{
+    const li=document.createElement('li');if(myNick&&r.n.toLowerCase()===myNick.toLowerCase())li.className='me';
+    [i+1,r.n,r.s].forEach(v=>{const sp=document.createElement('span');sp.textContent=v;li.appendChild(sp)});ol.appendChild(li)});
+}
+async function saveRecord(n,sc){
+  let list=mergeBoard(loadBoard(),n,sc);
+  try{localStorage.setItem('oceanSurferBoard',JSON.stringify(list));localStorage.setItem('oceanSurferNick',n)}catch(e){}
+  const mine=list.find(r=>r.n.toLowerCase()===n.toLowerCase()).s;
+  $('nickMsg').textContent=sc>=mine?'Новый личный рекорд '+n+': '+mine:'Личный рекорд '+n+': '+mine;
+  drawBoard(list);
+  if(!LB_URL)return;
+  try{
+    const u=LB_URL+'/scores/'+nickKey(n)+'.json',old=await(await fetch(u)).json();
+    if(!old||!(old.s>=mine))await fetch(u,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({n,s:mine,t:Date.now()})});
+    const all=await(await fetch(LB_URL+'/scores.json')).json();
+    if(all)drawBoard(Object.values(all).filter(r=>r&&typeof r.s==='number').map(r=>({n:cleanNick(r.n)||'?',s:r.s})).sort((a,b)=>b.s-a.s));
+  }catch(e){$('nickMsg').textContent+=' · общая таблица недоступна, показана таблица этого устройства'}
+}
+$('nickForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  const n=cleanNick($('nick').value);
+  if(!n){$('nickMsg').textContent='Введи никнейм, чтобы записать рекорд';$('nick').focus();return}
+  myNick=n;$('nick').value=n;$('nick').blur();saveRecord(n,lastScore);
+});
 function finish(){
   mode='over';
   const dist=Math.floor(S.z),total=dist+S.fish*5;
   if(total>best){best=total;try{localStorage.setItem('sharkCrestBest',best)}catch(e){}}
   $('cause').textContent=S.cause;$('total').textContent=total+' очков';
   $('rDist').textContent=dist;$('rFish').textContent=S.fish;$('rBest').textContent=best;
-  $('hud').hidden=true;$('pills').innerHTML='';$('over').hidden=false;$('again').focus();
+  $('hud').hidden=true;$('pills').innerHTML='';$('over').hidden=false;
+  lastScore=total;$('nick').value=myNick;
+  if(myNick){saveRecord(myNick,total);$('again').focus()}
+  else{$('nickMsg').textContent='Впиши никнейм — рекорд попадёт в таблицу';drawBoard(loadBoard());if(!TOUCH)$('nick').focus()}
 }
 
 /* ---------- per-frame scene sync ---------- */
@@ -896,6 +975,7 @@ requestAnimationFrame(frame);
 /* ---------- input ---------- */
 const KEYS={ArrowLeft:'L',KeyA:'L',ArrowRight:'R',KeyD:'R',ArrowUp:'U',KeyW:'U',Space:'U',ArrowDown:'D',KeyS:'D'};
 addEventListener('keydown',e=>{
+  if(e.target&&e.target.tagName==='INPUT')return;
   if(mode==='pause'){if(e.code==='Enter'||e.code==='Space'||e.code==='Escape'){e.preventDefault();resume()}return}
   if(e.code==='Escape'||e.code==='KeyP'){pause();return}
   if(mode!=='run'){if((e.code==='Enter'||e.code==='Space')&&document.activeElement.tagName!=='BUTTON'){e.preventDefault();start()}return}
